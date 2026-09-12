@@ -1,9 +1,8 @@
-import React from 'react'
 
-export default function index() {
-  return (
-    <div>
-      
-    </div>
-  )
+import React, { ReactNode } from 'react'
+import QueryProvider from './query.provider'
+
+export default function Providers({children}:{children:ReactNode}) {
+  return <QueryProvider>{children}</QueryProvider>
+  
 }
