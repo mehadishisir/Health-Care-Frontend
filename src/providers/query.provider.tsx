@@ -1,3 +1,6 @@
+"use client";
+
+
 import { environmentManager, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { browser } from 'node:process';
 import React, { ReactNode } from 'react'
