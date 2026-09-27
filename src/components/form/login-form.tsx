@@ -10,6 +10,8 @@ import { Eye, EyeClosed } from "lucide-react";
 import { loginSchema } from "@/validation";
 import { useLogin } from "@/hooks";
 import { useRouter } from "next/navigation";
+import { toast } from "../ui/toast";
+import { Spinner } from "../ui/spinner";
 
 
 export default function LoginForm() {
@@ -32,11 +34,17 @@ export default function LoginForm() {
       }
       login(loginData, {
         onSuccess:(res)=>{
-          console.log("Login successful", res);
+          toast.add({
+  title: "Login successful",
+  description: "You have been logged in.",
+})
           router.push("/");
         },
         onError:(err)=>{
-          console.log("Login failed", err);
+          toast.add({
+  title: "Login failed",
+  description: "Invalid email or password.",
+})
         }
       })
     },
@@ -120,8 +128,9 @@ export default function LoginForm() {
             }}
           </form.Field>
 
-          <Button type="submit" disabled={loginPending}>
-            {loginPending ? "Rendering..." : "Submit"}
+          <Button disabled={loginPending} type="submit">
+            {loginPending ?(<>
+            <Spinner /> Logingin...</> ): ("Login")}
           </Button>
         </FieldGroup>
       </form>
