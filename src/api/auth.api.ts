@@ -6,6 +6,9 @@ export function userLogin(payload:{email:string,password:string}){
 export function userLogOut(){
     return apiClient("/auth/logout",{method:"POST"});
 }
+export function googleOAuth(payload:{idToken:string}){
+  return apiClient("/auth/google",{method:"POST",body:payload})
+}
 export function getMe() {
   return apiClient("/auth/me");
 }
