@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
 import { useCurrentUser, useLogOut } from "@/hooks";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
 export default function Header() {
@@ -11,12 +13,31 @@ export default function Header() {
   ];
 
   const { data, isLoading } = useCurrentUser();
-  const logoutMutation = useLogOut();
+  const {mutate : logout} = useLogOut();
+  const queryClient =useQueryClient()
 
   const user = data?.data;
 
   const handleLogout = () => {
-    logoutMutation.mutate();
+    logout(
+      undefined,{
+        onSuccess:()=>{
+          toast.add({
+          title: "Tata",
+          description: "Logged out successfully",
+          type: "success",
+        });
+        queryClient.removeQueries({queryKey:["current-user"]})
+        },
+           onError: () => {
+            toast.add({
+          title: "Logout failed",
+          description: "Something Went Wrong",
+          type: "error",
+        });
+      },
+      }
+    )
   };
 
   return (
@@ -47,9 +68,9 @@ export default function Header() {
             <Button
               variant="destructive"
               onClick={handleLogout}
-              disabled={logoutMutation.isPending}
+             
             >
-              {logoutMutation.isPending ? "Logging out..." : "Logout"}
+             logout
             </Button>
           )}
         </div>

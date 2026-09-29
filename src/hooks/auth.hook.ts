@@ -1,6 +1,6 @@
 "use client";
 
-import { userGetMe, userLogin, userLogOut } from "@/api";
+import { getMe, userLogin, userLogOut } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useLogin() {
@@ -18,6 +18,7 @@ export function useLogOut() {
 export function useCurrentUser() {
   return useQuery({
     queryKey: ["current-user"],
-    queryFn: userGetMe,
+    queryFn: getMe,
+    retry: false
   });
 }

@@ -6,16 +6,6 @@ export function userLogin(payload:{email:string,password:string}){
 export function userLogOut(){
     return apiClient("/auth/logout",{method:"POST"});
 }
-export function userGetMe() {
-  console.log("userGetMe CALLED");
-
-  return apiClient("/auth/me")
-    .then((res) => {
-      console.log("OFETCH RESPONSE:", res);
-      return res;
-    })
-    .catch((error) => {
-      console.error("OFETCH ERROR:", error);
-      throw error;
-    });
+export function getMe() {
+  return apiClient("/auth/me");
 }
